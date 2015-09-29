@@ -5,7 +5,10 @@ docopt_helpstring = """\
 Usage:
   mind2 tags
   mind2 notes
+  mind2 untagged
 """
+
+db = Mind2MetaData()
 
 
 def main():
@@ -14,13 +17,18 @@ def main():
         print_tags()
     elif args['notes']:
         print_notes()
+    elif args['untagged']:
+        print_untagged_notes()
 
 
 def print_tags():
-    db = Mind2MetaData()
     print('\n'.join(db.tags))
 
 
 def print_notes():
-    db = Mind2MetaData()
     print('\n'.join(db.notes.keys()))
+
+
+def print_untagged_notes():
+    print('\n'.join([note_name for note_name in db.notes if len(db.notes[note_name]['tags']) == 0]))
+
