@@ -1,11 +1,11 @@
 from docopt import docopt
-from mind2.core import Mind2MetaData
+from minder.core import Mind2MetaData
 
 docopt_helpstring = """\
 Usage:
-  mind2 tags
-  mind2 notes
-  mind2 untagged
+  minder tags
+  minder notes
+  minder untagged
 """
 
 db = Mind2MetaData()
@@ -31,4 +31,3 @@ def print_notes():
 
 def print_untagged_notes():
     print('\n'.join([note_name for note_name in db.notes if len(db.notes[note_name]['tags']) == 0]))
-

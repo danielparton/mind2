@@ -1,23 +1,37 @@
 import os
+import yaml
+
+
+class DotFile(object):
+    def __init__(self):
+        self.dot_filename = '.minder'
+        user_home_dir = os.path.expanduser('~')
+        self.dot_filepath = os.path.join(user_home_dir, self.dot_filename)
+        with open(self.dot_filepath) as dot_file:
+            dotfile_data = yaml.load(dot_file)
+        self.project_dir = dotfile_data.get('project_dir')
+
+
+dotfile = DotFile()
 
 
 class Mind2MetaData(object):
     def __init__(self):
-        self.project_dir = '.'
         self.get_note_filepaths()
         self.get_metadata()
 
     def get_note_filepaths(self):
         self.note_filepaths = [
-            filepath for filepath in os.listdir(self.project_dir)
-            if (len(filepath) > 4 and filepath[-4:] == '.txt')
+            os.path.join(dotfile.project_dir, filename) for filename in os.listdir(dotfile.project_dir)
+            if (len(filename) > 4 and filename[-4:] == '.txt')
         ]
 
     def get_metadata(self):
         notes = {}
         tags = set()
         for note_filepath in self.note_filepaths:
-            note_name = note_filepath[: note_filepath.index('.txt')]
+            note_filename = os.path.basename(note_filepath)
+            note_name = note_filename[: note_filename.index('.txt')]
             notes.update({note_name: {}})
             note_tags = []
 
@@ -31,3 +45,4 @@ class Mind2MetaData(object):
 
         self.notes = notes
         self.tags = tags
+
