@@ -10,9 +10,13 @@ class DotFile(object):
         with open(self.dot_filepath) as dot_file:
             dotfile_data = yaml.load(dot_file)
         self.project_dir = dotfile_data.get('project_dir')
+        self.viewer_path = dotfile_data.get('viewer_path')
 
 
 dotfile = DotFile()
+
+notes_dirpath = os.path.join(dotfile.project_dir, 'notes')
+anthologies_dirpath = os.path.join(dotfile.project_dir, 'anthologies')
 
 
 class Mind2MetaData(object):
@@ -22,7 +26,7 @@ class Mind2MetaData(object):
 
     def get_note_filepaths(self):
         self.note_filepaths = [
-            os.path.join(dotfile.project_dir, filename) for filename in os.listdir(dotfile.project_dir)
+            os.path.join(notes_dirpath, filename) for filename in os.listdir(notes_dirpath)
             if (len(filename) > 4 and filename[-4:] == '.txt')
         ]
 

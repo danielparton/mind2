@@ -1,11 +1,13 @@
 from docopt import docopt
 from minder.core import Mind2MetaData
+from minder.anthologies import open_anthology
 
 docopt_helpstring = """\
 Usage:
   minder tags
   minder notes
   minder untagged
+  minder a <anthology>
 """
 
 db = Mind2MetaData()
@@ -19,6 +21,8 @@ def main():
         print_notes()
     elif args['untagged']:
         print_untagged_notes()
+    elif args['a']:
+        open_anthology(args['<anthology>'])
 
 
 def print_tags():

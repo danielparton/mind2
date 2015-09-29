@@ -1,18 +1,13 @@
-from minder.core import Mind2MetaData
+import os
+from minder.core import Mind2MetaData, dotfile, notes_dirpath
 from subprocess import Popen
 
 mind2metadata = Mind2MetaData()
 
-viewer_path = '/Applications/Marked 2.app/Contents/MacOS/Marked 2'
-
 def run_viewer(note_names):
+    note_filepaths = [os.path.join(notes_dirpath, note_name) + '.txt' for note_name in note_names]
     Popen(
         [
-            viewer_path,
-        ] + mind2metadata.note_filepaths
+            dotfile.viewer_path,
+        ] + note_filepaths
     )
-
-if __name__ == '__main__':
-    run_viewer(note_names)
-
-
