@@ -23,7 +23,7 @@ setup(
     ],
     entry_points={'console_scripts':
         [
-            'mindr = cli.cli:main'
+            'mindr = mindr.cli:main'
         ]
     },
 )
