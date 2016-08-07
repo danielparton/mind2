@@ -1,5 +1,6 @@
 import os
 import yaml
+import subprocess
 
 
 class DotFile(object):
@@ -11,23 +12,25 @@ class DotFile(object):
             dotfile_data = yaml.load(dot_file)
         self.project_dir = dotfile_data.get('project_dir')
         self.viewer_path = dotfile_data.get('viewer_path')
+        self.editor_path = dotfile_data.get('editor_path')
 
 
 dotfile = DotFile()
 
-notes_dirpath = os.path.join(dotfile.project_dir, 'notes/work')
-private_notes_dirpath = os.path.join(dotfile.project_dir, 'notes/.personal')
-anthologies_dirpath = os.path.join(dotfile.project_dir, 'anthologies')
-
 
 class Mind2MetaData(object):
     def __init__(self):
+        self.config = DotFile()
+        self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/work')
+        self.private_notes_dirpath = os.path.join(self.config.project_dir, 'notes/.personal')
+        self.anthologies_dirpath = os.path.join(self.config.project_dir, 'anthologies')
+
         self.get_note_filepaths()
         self.get_metadata()
 
     def get_note_filepaths(self):
         self.note_filepaths = [
-            os.path.join(notes_dirpath, filename) for filename in os.listdir(notes_dirpath)
+            os.path.join(self.notes_dirpath, filename) for filename in os.listdir(self.notes_dirpath)
             if (len(filename) > 4 and filename[-4:] == '.txt')
         ]
 
@@ -51,6 +54,11 @@ class Mind2MetaData(object):
         self.notes = notes
         self.tags = tags
 
+    def mk_new_note(self, notename):
+        # TODO check if note already exists
+        if notename in self.notes:
+            print('Note {} already exists. Exiting.'.format(notename))
+        else:
+            fpath = os.path.join(self.notes_dirpath, notename)
+            subprocess.check_output('{} {} >/dev/tty'.format(self.config.editor_path, fpath), shell=True)
 
-def mk_new_note():
-    pass

@@ -1,7 +1,10 @@
 import os
-from mindr.core import anthologies_dirpath
+from mindr.core import Mind2MetaData
 from mindr.viewing import run_viewer
 
+db = Mind2MetaData()
+
+anthologies_dirpath = db.anthologies_dirpath
 anthologies_names = os.listdir(anthologies_dirpath)
 
 anthologies = {}

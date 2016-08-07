@@ -1,10 +1,10 @@
 from docopt import docopt
-from mindr.core import Mind2MetaData, mk_new_note
+from mindr.core import Mind2MetaData
 from mindr.anthologies import open_anthology
 
 docopt_helpstring = """\
 Usage:
-  mindr new
+  mindr new <notename>
   mindr tags
   mindr notes
   mindr untagged
@@ -17,7 +17,7 @@ db = Mind2MetaData()
 def main():
     args = docopt(docopt_helpstring, help=False)
     if args['new']:
-        mk_new_note()
+        db.mk_new_note(args['<notename>'])
     elif args['tags']:
         print_tags()
     elif args['notes']:

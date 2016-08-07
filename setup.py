@@ -19,7 +19,6 @@ setup(
     license='',
     packages=[
         'mindr',
-        'cli',
     ],
     entry_points={'console_scripts':
         [
