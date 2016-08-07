@@ -1,6 +1,6 @@
 import os
-from minder.core import anthologies_dirpath
-from minder.viewing import run_viewer
+from mindr.core import anthologies_dirpath
+from mindr.viewing import run_viewer
 
 anthologies_names = os.listdir(anthologies_dirpath)
 

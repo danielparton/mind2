@@ -1,13 +1,14 @@
 from docopt import docopt
-from minder.core import Mind2MetaData
-from minder.anthologies import open_anthology
+from mindr.core import Mind2MetaData, mk_new_note
+from mindr.anthologies import open_anthology
 
 docopt_helpstring = """\
 Usage:
-  minder tags
-  minder notes
-  minder untagged
-  minder a <anthology>
+  mindr new
+  mindr tags
+  mindr notes
+  mindr untagged
+  mindr a <anthology>
 """
 
 db = Mind2MetaData()
@@ -15,7 +16,9 @@ db = Mind2MetaData()
 
 def main():
     args = docopt(docopt_helpstring, help=False)
-    if args['tags']:
+    if args['new']:
+        mk_new_note()
+    elif args['tags']:
         print_tags()
     elif args['notes']:
         print_notes()

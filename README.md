@@ -1,2 +1,3 @@
-# minder
+# mindr
+
 Notetaking app

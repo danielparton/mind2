@@ -11,19 +11,19 @@ __version__ = VERSION
 ##########################
 
 setup(
-    name='minder',
+    name='mindr',
     version=__version__,
     author='Daniel L Parton',
     author_email='',
     description='Notetaking app',
     license='',
     packages=[
-        'minder',
+        'mindr',
         'cli',
     ],
     entry_points={'console_scripts':
         [
-            'minder = cli.cli:main'
+            'mindr = cli.cli:main'
         ]
     },
 )

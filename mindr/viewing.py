@@ -1,5 +1,5 @@
 import os
-from minder.core import Mind2MetaData, dotfile, notes_dirpath
+from mindr.core import Mind2MetaData, dotfile, notes_dirpath
 from subprocess import Popen
 
 mind2metadata = Mind2MetaData()

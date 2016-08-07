@@ -4,7 +4,7 @@ import yaml
 
 class DotFile(object):
     def __init__(self):
-        self.dot_filename = '.minder'
+        self.dot_filename = '.mindr'
         user_home_dir = os.path.expanduser('~')
         self.dot_filepath = os.path.join(user_home_dir, self.dot_filename)
         with open(self.dot_filepath) as dot_file:
@@ -15,7 +15,8 @@ class DotFile(object):
 
 dotfile = DotFile()
 
-notes_dirpath = os.path.join(dotfile.project_dir, 'notes')
+notes_dirpath = os.path.join(dotfile.project_dir, 'notes/work')
+private_notes_dirpath = os.path.join(dotfile.project_dir, 'notes/.personal')
 anthologies_dirpath = os.path.join(dotfile.project_dir, 'anthologies')
 
 
@@ -50,3 +51,6 @@ class Mind2MetaData(object):
         self.notes = notes
         self.tags = tags
 
+
+def mk_new_note():
+    pass
