@@ -21,7 +21,9 @@ dotfile = DotFile()
 class Mind2MetaData(object):
     def __init__(self):
         self.config = DotFile()
-        self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/work')
+        # TODO This is a tmp Hack
+        # self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/work')
+        self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/.personal')
         self.private_notes_dirpath = os.path.join(self.config.project_dir, 'notes/.personal')
         self.anthologies_dirpath = os.path.join(self.config.project_dir, 'anthologies')
 
