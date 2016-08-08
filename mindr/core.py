@@ -19,6 +19,15 @@ dotfile = DotFile()
 
 
 class Mind2MetaData(object):
+    """
+    Parameters
+    ----------
+    notes: dict
+        notename: tags: tag
+    tags: set
+        set(tags)
+    notes_by_tag: dict
+    """
     def __init__(self):
         self.config = DotFile()
         # TODO This is a tmp Hack
@@ -56,8 +65,17 @@ class Mind2MetaData(object):
         self.notes = notes
         self.tags = tags
 
+    def populate_notes_by_tag(self):
+        notes_by_tag = {}
+        for notename, note in self.notes.items():
+            for tag in note['tags']:
+                if tag in notes_by_tag:
+                    notes_by_tag[tag].append(notename)
+                else:
+                    notes_by_tag[tag] = [notename]
+        self.notes_by_tag = notes_by_tag
+
     def mk_new_note(self, notename):
-        # TODO check if note already exists
         if notename in self.notes:
             print('Note {} already exists. Exiting.'.format(notename))
         else:
