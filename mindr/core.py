@@ -18,10 +18,10 @@ class DotFile(object):
 dotfile = DotFile()
 
 
-class Mind2MetaData(object):
+class MindrDB(object):
     """
-    Parameters
-    ----------
+    Member variables
+    ----------------
     notes: dict
         notename: tags: tag
     tags: set
@@ -30,14 +30,15 @@ class Mind2MetaData(object):
     """
     def __init__(self):
         self.config = DotFile()
-        # TODO This is a tmp Hack
-        # self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/work')
-        self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/.personal')
+        # TODO This is a tmp hack
+        self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/work')
+        # self.notes_dirpath = os.path.join(self.config.project_dir, 'notes/.personal')
         self.private_notes_dirpath = os.path.join(self.config.project_dir, 'notes/.personal')
         self.anthologies_dirpath = os.path.join(self.config.project_dir, 'anthologies')
 
         self.get_note_filepaths()
         self.get_metadata()
+        self.populate_notes_by_tag()
 
     def get_note_filepaths(self):
         self.note_filepaths = [
@@ -54,10 +55,15 @@ class Mind2MetaData(object):
             notes.update({note_name: {}})
             note_tags = []
 
-            with open(note_filepath) as note_file:
-                for line in note_file:
-                    if len(line) >= 5 and line[0:5] == '@tag:':
-                        note_tags.append(line[5:].strip())
+            with open(note_filepath, encoding='utf-8') as note_file:
+                try:
+                    for line in note_file:
+                        if line == '':
+                            break
+                        if len(line) >= 5 and line[0:5] == '@tag:':
+                            note_tags.append(line[5:].strip())
+                except UnicodeDecodeError:
+                    print('Warning: invalid character detected in note - {}'.format(note_name))
 
             tags.update(note_tags)
             notes[note_name].update({'tags': note_tags})

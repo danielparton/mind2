@@ -1,9 +1,9 @@
 import os
-from mindr.core import Mind2MetaData
+from mindr.core import MindrDB
 from mindr.viewing import run_viewer, run_marked, run_marked_concat
 import subprocess
 
-db = Mind2MetaData()
+db = MindrDB()
 
 anthologies_dirpath = db.anthologies_dirpath
 anthologies_names = os.listdir(anthologies_dirpath)
@@ -19,11 +19,11 @@ for anthology_name in anthologies_names:
     anthologies[anthology_name] = note_names
 
 
-def open_anthology(anthology_name):
+def open_anthology(db, anthology_name):
     note_names = anthologies[anthology_name]
     run_marked_concat(note_names)
 
 
-def edit_anthology(anthology_name):
+def edit_anthology(db, anthology_name):
     fpath = os.path.join(db.anthologies_dirpath, anthology_name)
     subprocess.check_output('{} {} >/dev/tty'.format(db.config.editor_path, fpath), shell=True)

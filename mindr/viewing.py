@@ -1,9 +1,9 @@
 import os
-from mindr.core import Mind2MetaData
+from mindr.core import MindrDB
 from subprocess import Popen
 import subprocess
 
-db = Mind2MetaData()
+db = MindrDB()
 notes_dirpath = db.notes_dirpath
 viewer_path = db.config.viewer_path
 
